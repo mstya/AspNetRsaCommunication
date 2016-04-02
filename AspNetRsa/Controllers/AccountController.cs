@@ -11,7 +11,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 
-namespace RSA2.Controllers
+namespace AspNetRsa.Controllers
 {
     [Authorize]
     public class AccountController : Controller

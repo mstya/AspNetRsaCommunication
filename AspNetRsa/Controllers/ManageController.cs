@@ -8,9 +8,8 @@ using AspNetRsa.Models;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
-using RSA2.Models;
 
-namespace RSA2.Controllers
+namespace AspNetRsa.Controllers
 {
     [Authorize]
     public class ManageController : Controller
