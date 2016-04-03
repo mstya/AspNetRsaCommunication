@@ -4,6 +4,28 @@
     ViewBag.Title = "Log in";
 }
 
+<script src="~/Scripts/jquery-1.10.2.js"></script>
+<script src="~/Scripts/JsNet/System.debug.js"></script>
+<script src="~/Scripts/JsNet/System.IO.debug.js"></script>
+<script src="~/Scripts/JsNet/System.Text.debug.js"></script>
+<script src="~/Scripts/JsNet/System.Convert.debug.js"></script>
+<script src="~/Scripts/jsnet/System.BigInt.debug.js"></script>
+<script src="~/Scripts/JsNet/System.BitConverter.debug.js"></script>
+<script src="~/Scripts/JsNet/System.Security.Cryptography.debug.js"></script>
+<script src="~/Scripts/JsNet/System.Security.Cryptography.SHA1.debug.js"></script>
+<script src="~/Scripts/JsNet/System.Security.Cryptography.HMACSHA1.debug.js"></script>
+<script src="~/Scripts/JsNet/System.Security.Cryptography.RSA.debug.js"></script>
+
+<script src="~/Scripts/app/byteHelpers.js"></script>
+<script src="~/Scripts/app/rsaManager.js"></script>
+<script src="~/Scripts/app/rsaLoginManager.js"></script>
+
+<script>
+    var pukey = @(Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model.PublicKey)));
+</script>
+<script src="~/Scripts/app/login.js"></script>
+
+
 <h2>@ViewBag.Title.</h2>
 <div class="row">
     <div class="col-md-8">
@@ -11,20 +33,23 @@
             @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
             {
                 @Html.AntiForgeryToken()
+                @Html.HiddenFor(x => x.Email)
+                @Html.HiddenFor(x => x.Password)
+
                 <h4>Use a local account to log in.</h4>
                 <hr />
                 @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                 <div class="form-group">
                     @Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label" })
                     <div class="col-md-10">
-                        @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+                        @Html.TextBoxFor(m => m.Email, new { @class = "form-control",id = "fakeEmail", Name="fakeEmail" })
                         @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
                     </div>
                 </div>
                 <div class="form-group">
                     @Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label" })
                     <div class="col-md-10">
-                        @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
+                        @Html.PasswordFor(m => m.Password, new { @class = "form-control", id = "fakePassword", Name = "fakePassword" })
                         @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
                     </div>
                 </div>
@@ -38,7 +63,7 @@
                 </div>
                 <div class="form-group">
                     <div class="col-md-offset-2 col-md-10">
-                        <input type="submit" value="Log in" class="btn btn-default" />
+                        <input type="button" id="LogIn" value="Log in" class="btn btn-default" />
                     </div>
                 </div>
                 <p>

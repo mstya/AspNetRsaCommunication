@@ -14,13 +14,17 @@
 <script src="~/Scripts/JsNet/System.Security.Cryptography.HMACSHA1.debug.js"></script>
 <script src="~/Scripts/JsNet/System.Security.Cryptography.RSA.debug.js"></script>
 
+<script src="~/Scripts/app/byteHelpers.js"></script>
+<script src="~/Scripts/app/rsaManager.js"></script>
+<script src="~/Scripts/app/rsaLoginManager.js"></script>
+
 <script>
     console.log($);
     window.jQuery(function() {
         //alert("JSQUERY")
 
 
-        var pukey  = @(Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model.PublicKeyXml)))
+        var pukey = @(Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model.PublicKeyXml)));
         console.log(pukey);
         //console.log(prkey);
 
@@ -30,6 +34,15 @@
         //var encryptedData = encrypt.encrypt("123");
         //console.log(encryptedData);
 
+        //var rsa = new RsaManager();
+        //var encrypedByteString = rsa.encrypt(pukey, "plain text");
+
+        //console.log(encrypedByteString);
+
+        var loginManager = new RsaLoginManager(pukey);
+        loginManager.submitForm("login", "password");
+
+        return;
         debugger;
         // Text to encrypt and decrypt.
         var text = "plain text";
@@ -67,9 +80,9 @@
         // ------------------------------------------------
         var decryptedBytes = System.Text.Encoding.UTF8.GetBytes(text);
         // Create a new instance of RSACryptoServiceProvider.
-        rsa = new System.Security.Cryptography.RSACryptoServiceProvider();
+        //rsa = new System.Security.Cryptography.RSACryptoServiceProvider();
         // Import the RSA Key information.
-        rsa.ImportParameters(rsaParamsPublic);
+        //rsa.ImportParameters(rsaParamsPublic);
         // Encrypt byte array.
         var encryptedBytes = rsa.Encrypt(decryptedBytes, doOaepPadding);
         // Convert bytes to base64 string.
@@ -85,7 +98,7 @@
         $.ajax({
             "url": "@Url.Action("SaveData","Home")",
             "type": "POST",
-            "data": { data: data },
+            "data": { data: encrypedByteString },
             "success": function(result) {
                 alert(result);
             }

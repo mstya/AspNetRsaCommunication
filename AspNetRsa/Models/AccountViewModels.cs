@@ -60,6 +60,8 @@ namespace AspNetRsa.Models
 
         [Display(Name = "Remember me?")]
         public bool RememberMe { get; set; }
+
+        public string PublicKey { get; set; }
     }
 
     public class RegisterViewModel

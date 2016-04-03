@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using AspNetRsa;
+using AspNetRsa.Managers;
 using AspNetRsa.Models;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
@@ -16,17 +17,24 @@ namespace AspNetRsa.Controllers
     [Authorize]
     public class AccountController : Controller
     {
+        private const string PRIVATE_KEY = "privateKey";
+
         private ApplicationSignInManager _signInManager;
+
         private ApplicationUserManager _userManager;
+
+        private readonly RsaManager rsaManager;
 
         public AccountController()
         {
+            this.rsaManager = new RsaManager();
         }
 
         public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager )
         {
             UserManager = userManager;
             SignInManager = signInManager;
+            this.rsaManager = new RsaManager();
         }
 
         public ApplicationSignInManager SignInManager
@@ -59,7 +67,13 @@ namespace AspNetRsa.Controllers
         public ActionResult Login(string returnUrl)
         {
             ViewBag.ReturnUrl = returnUrl;
-            return View();
+
+            LoginViewModel loginModel = new LoginViewModel();
+            KeyModel keyModel = rsaManager.GetKeys();
+
+            loginModel.PublicKey = keyModel.PublicKeyXml;
+            this.Session[PRIVATE_KEY] = keyModel;
+            return View(loginModel);
         }
 
         //
@@ -69,8 +83,17 @@ namespace AspNetRsa.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Login(LoginViewModel model, string returnUrl)
         {
-            if (!ModelState.IsValid)
+            KeyModel keys = this.Session[PRIVATE_KEY] as KeyModel;
+            string privateKey = keys.PrivateKeyXml;
+            model.Email = rsaManager.Decrypt(model.Email, privateKey);
+            model.Password = rsaManager.Decrypt(model.Password, privateKey);
+
+            ModelState.Clear();
+            bool validationResult = TryValidateModel(model);
+
+            if (!validationResult)
             {
+                model.PublicKey = keys.PublicKeyXml;
                 return View(model);
             }
 

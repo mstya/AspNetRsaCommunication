@@ -189,6 +189,8 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Scripts\app\login.js" />
+    <Content Include="Scripts\app\rsaLoginManager.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
@@ -240,6 +242,8 @@
     <Content Include="Scripts\JsNet\System.Web.UI.TreeView.debug.js" />
     <Content Include="Scripts\JsNet\System.Windows.Forms.Keys.debug.js" />
     <Content Include="Scripts\JsNet\System.Xml.debug.js" />
+    <Content Include="Scripts\app\byteHelpers.js" />
+    <Content Include="Scripts\app\rsaManager.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
