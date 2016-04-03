@@ -16,15 +16,15 @@
 <script src="~/Scripts/JsNet/System.Security.Cryptography.HMACSHA1.debug.js"></script>
 <script src="~/Scripts/JsNet/System.Security.Cryptography.RSA.debug.js"></script>
 
-<script src="~/Scripts/app/byteHelpers.js"></script>
-<script src="~/Scripts/app/rsaManager.js"></script>
-<script src="~/Scripts/app/rsaLoginManager.js"></script>
+<script src="~/Scripts/app/Services/localStorageService.js"></script>
+<script src="~/Scripts/app/Helpers/byteHelpers.js"></script>
+<script src="~/Scripts/app/Services/rsaService.js"></script>
+<script src="~/Scripts/app/Services/rsaLoginService.js"></script>
 
 <script>
     var pukey = @(Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model.PublicKey)));
 </script>
 <script src="~/Scripts/app/login.js"></script>
-
 
 <h2>@ViewBag.Title.</h2>
 <div class="row">
@@ -42,14 +42,14 @@
                 <div class="form-group">
                     @Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label" })
                     <div class="col-md-10">
-                        @Html.TextBoxFor(m => m.Email, new { @class = "form-control",id = "fakeEmail", Name="fakeEmail" })
+                        @Html.TextBoxFor(m => m.Email, new { @class = "form-control",id = "fakeEmail", Name="" })
                         @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
                     </div>
                 </div>
                 <div class="form-group">
                     @Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label" })
                     <div class="col-md-10">
-                        @Html.PasswordFor(m => m.Password, new { @class = "form-control", id = "fakePassword", Name = "fakePassword" })
+                        @Html.PasswordFor(m => m.Password, new { @class = "form-control", id = "fakePassword", Name = "" })
                         @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
                     </div>
                 </div>

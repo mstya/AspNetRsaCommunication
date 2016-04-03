@@ -179,18 +179,21 @@
     <Compile Include="Models\KeyModel.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Scripts\JsNet\System.BigInt.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\svie0j.jpg" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Scripts\app\Services\localStorageService.js" />
     <Content Include="Scripts\app\login.js" />
-    <Content Include="Scripts\app\rsaLoginManager.js" />
+    <Content Include="Scripts\app\register.js" />
+    <Content Include="Scripts\app\Services\rsaLoginService.js" />
+    <Content Include="Scripts\app\Services\rsaRegisterService.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
@@ -201,9 +204,6 @@
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
-    <Content Include="Scripts\JsNet\Adobe.Flash.Clipboard.swf" />
-    <Content Include="Scripts\JsNet\Adobe.Flash.SoundManager.debug.js" />
-    <Content Include="Scripts\JsNet\Adobe.Flash.SoundManager.swf" />
     <Content Include="Scripts\JsNet\System.Audio.debug.js" />
     <Content Include="Scripts\JsNet\System.BigInt.debug.js" />
     <Content Include="Scripts\JsNet\System.BitConverter.debug.js" />
@@ -232,18 +232,16 @@
     <Content Include="Scripts\JsNet\System.Text.debug.js" />
     <Content Include="Scripts\JsNet\System.Web.debug.js" />
     <Content Include="Scripts\JsNet\System.Web.Mobile.debug.js" />
-    <Content Include="Scripts\JsNet\System.Web.UI.ConsoleFrame.htm" />
     <Content Include="Scripts\JsNet\System.Web.UI.debug.js" />
     <Content Include="Scripts\JsNet\System.Web.UI.HtmlControls.debug.js" />
     <Content Include="Scripts\JsNet\System.Web.UI.HtmlControls.TextBox.debug.js" />
-    <Content Include="Scripts\JsNet\System.Web.UI.Interface.debug.css" />
     <Content Include="Scripts\JsNet\System.Web.UI.Interface.debug.js" />
     <Content Include="Scripts\JsNet\System.Web.UI.ShortKeys.debug.js" />
     <Content Include="Scripts\JsNet\System.Web.UI.TreeView.debug.js" />
     <Content Include="Scripts\JsNet\System.Windows.Forms.Keys.debug.js" />
     <Content Include="Scripts\JsNet\System.Xml.debug.js" />
-    <Content Include="Scripts\app\byteHelpers.js" />
-    <Content Include="Scripts\app\rsaManager.js" />
+    <Content Include="Scripts\app\Helpers\byteHelpers.js" />
+    <Content Include="Scripts\app\Services\rsaService.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
@@ -282,13 +280,6 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
-    <Content Include="Scripts\JsNet\web.config" />
-    <None Include="Scripts\JsNet\web.Debug.config">
-      <DependentUpon>web.config</DependentUpon>
-    </None>
-    <None Include="Scripts\JsNet\web.Release.config">
-      <DependentUpon>web.config</DependentUpon>
-    </None>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -3,7 +3,7 @@
     var encryptedEmail = $("#fakeEmail").val();
 
     if (encryptedEmail !== "") {
-        var login = loginManager.getLogin();
+        var login = LocalStorage.getValue("login");
         $("#fakeEmail").val(login);
     }
 

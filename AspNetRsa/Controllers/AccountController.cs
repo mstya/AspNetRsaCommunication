@@ -163,7 +163,13 @@ namespace AspNetRsa.Controllers
         [AllowAnonymous]
         public ActionResult Register()
         {
-            return View();
+            RegisterViewModel registerViewModel = new RegisterViewModel();
+            KeyModel keyModel = rsaManager.GetKeys();
+
+            registerViewModel.PublicKey = keyModel.PublicKeyXml;
+            this.Session[PRIVATE_KEY] = keyModel;
+
+            return View(registerViewModel);
         }
 
         //
@@ -173,7 +179,16 @@ namespace AspNetRsa.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Register(RegisterViewModel model)
         {
-            if (ModelState.IsValid)
+            KeyModel keys = this.Session[PRIVATE_KEY] as KeyModel;
+            string privateKey = keys.PrivateKeyXml;
+            model.Email = rsaManager.Decrypt(model.Email, privateKey);
+            model.Password = rsaManager.Decrypt(model.Password, privateKey);
+            model.ConfirmPassword = rsaManager.Decrypt(model.ConfirmPassword, privateKey);
+
+            ModelState.Clear();
+            bool validationResult = TryValidateModel(model);
+
+            if (validationResult)
             {
                 var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
                 var result = await UserManager.CreateAsync(user, model.Password);
@@ -192,6 +207,7 @@ namespace AspNetRsa.Controllers
                 AddErrors(result);
             }
 
+            model.PublicKey = keys.PublicKeyXml;
             // If we got this far, something failed, redisplay form
             return View(model);
         }

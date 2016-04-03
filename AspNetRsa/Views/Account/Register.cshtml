@@ -3,35 +3,62 @@
     ViewBag.Title = "Register";
 }
 
+<script src="~/Scripts/jquery-1.10.2.js"></script>
+<script src="~/Scripts/JsNet/System.debug.js"></script>
+<script src="~/Scripts/JsNet/System.IO.debug.js"></script>
+<script src="~/Scripts/JsNet/System.Text.debug.js"></script>
+<script src="~/Scripts/JsNet/System.Convert.debug.js"></script>
+<script src="~/Scripts/jsnet/System.BigInt.debug.js"></script>
+<script src="~/Scripts/JsNet/System.BitConverter.debug.js"></script>
+<script src="~/Scripts/JsNet/System.Security.Cryptography.debug.js"></script>
+<script src="~/Scripts/JsNet/System.Security.Cryptography.SHA1.debug.js"></script>
+<script src="~/Scripts/JsNet/System.Security.Cryptography.HMACSHA1.debug.js"></script>
+<script src="~/Scripts/JsNet/System.Security.Cryptography.RSA.debug.js"></script>
+
+<script src="~/Scripts/app/Services/localStorageService.js"></script>
+<script src="~/Scripts/app/Helpers/byteHelpers.js"></script>
+<script src="~/Scripts/app/Services/rsaService.js"></script>
+<script src="~/Scripts/app/Services/rsaRegisterService.js"></script>
+
+<script>
+    var pukey = @(Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model.PublicKey)));
+</script>
+<script src="~/Scripts/app/register.js"></script>
+
 <h2>@ViewBag.Title.</h2>
 
 @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
 {
+    @Html.HiddenFor(x => x.Email)
+    @Html.HiddenFor(x => x.Password)
+    @Html.HiddenFor(x => x.ConfirmPassword)
+
     @Html.AntiForgeryToken()
+
     <h4>Create a new account.</h4>
     <hr />
     @Html.ValidationSummary("", new { @class = "text-danger" })
     <div class="form-group">
         @Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label" })
         <div class="col-md-10">
-            @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+            @Html.TextBoxFor(m => m.Email, new { @class = "form-control", id="fakeEmail", Name="" })
         </div>
     </div>
     <div class="form-group">
         @Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label" })
         <div class="col-md-10">
-            @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
+            @Html.PasswordFor(m => m.Password, new { @class = "form-control", id = "fakePassword", Name = "" })
         </div>
     </div>
     <div class="form-group">
         @Html.LabelFor(m => m.ConfirmPassword, new { @class = "col-md-2 control-label" })
         <div class="col-md-10">
-            @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control" })
+            @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control", id = "fakeConfirmPassword", Name = "fakeConfirmPassword" })
         </div>
     </div>
     <div class="form-group">
         <div class="col-md-offset-2 col-md-10">
-            <input type="submit" class="btn btn-default" value="Register" />
+            <input type="button" id="Register" class="btn btn-default" value="Register" />
         </div>
     </div>
 }
